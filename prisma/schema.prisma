@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  login      String @unique
+  surname    String
+  firstname  String
+  secondname String
+  password   String
+}
+
+model Place {
+  id      Int      @id @default(autoincrement())
+  number  String   @unique
+  address String
+  to      To[]
+  defect  Defect[]
+}
+
+model To {
+  id          Int      @id @default(autoincrement())
+  placeNumber String
+  address     String
+  placeTo     Place    @relation(fields: [placeNumber], references: [number])
+  createdAt   DateTime @default(now()) @db.Timestamptz
+  updatedAt   DateTime @updatedAt @db.Timestamptz
+  protocol    Json?
+  fio         String
+}
+
+model Defect {
+  id          Int      @id @default(autoincrement())
+  placeNumber String
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  placeDefect Place    @relation(fields: [placeNumber], references: [number])
+}

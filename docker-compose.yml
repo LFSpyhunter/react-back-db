@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db-to:
+    build: .
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - db
+      - react-app
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+  db:
+    image: postgres:alpine3.20
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+  react-app:
+    build: ../front
+    ports:
+      - "80:80"
