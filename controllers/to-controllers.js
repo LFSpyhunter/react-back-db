@@ -10,7 +10,13 @@ const ToController = {
         const {
             placeNumber,
             address,
-            protocol
+            protocol11,
+            protocol12,
+            protocol32,
+            protocol51,
+            protocol52,
+            protocol61,
+            protocol10,
         } = req.body;
         const user = await prisma.user.findUnique({
             where: {
@@ -29,7 +35,13 @@ const ToController = {
                     placeNumber,
                     fio: `${user.surname} ${user.firstname} ${user.secondname}`,
                     address,
-                    protocol
+                    protocol11,
+                    protocol12,
+                    protocol32,
+                    protocol51,
+                    protocol52,
+                    protocol61,
+                    protocol10,
                 }
             })
             res.json(to)
@@ -87,7 +99,13 @@ const ToController = {
             id
         } = req.params;
         const {
-            protocol
+            protocol11,
+            protocol12,
+            protocol32,
+            protocol51,
+            protocol52,
+            protocol61,
+            protocol10,
         } = req.body;
         try {
             const to = await prisma.to.update({
@@ -95,7 +113,13 @@ const ToController = {
                     id: Number(id)
                 },
                 data: {
-                    protocol: protocol || undefined
+                    protocol11: protocol11 || undefined,
+                    protocol12: protocol12 || undefined,
+                    protocol32: protocol32 || undefined,
+                    protocol51: protocol51 || undefined,
+                    protocol52: protocol52 || undefined,
+                    protocol61: protocol61 || undefined,
+                    protocol10: protocol10 || undefined
                 }
             })
             res.json(to)

@@ -37,7 +37,13 @@ model To {
   placeTo     Place    @relation(fields: [placeNumber], references: [number])
   createdAt   DateTime @default(now()) @db.Timestamptz
   updatedAt   DateTime @updatedAt @db.Timestamptz
-  protocol    Json?
+  protocol11  Json?
+  protocol12  Json?
+  protocol32  Json?
+  protocol51  Json?
+  protocol52  Json?
+  protocol61  Json?
+  protocol10  Json?
   fio         String
 }
 
